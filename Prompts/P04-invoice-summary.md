@@ -1,16 +1,18 @@
-# P04 · Invoice summary (v1.0)
+# P04 · Invoice summary (v1.1)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 1.5 of 3 (Extraction → Classification → Summary → Validation → Decision)  
-**Current version:** v1.0  
+**Current version:** v1.1  
 **Status:** ✅ Tested  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.0 — initial)
+## 📌 Prompt Text (v1.1 — improved)
 
-Summarize the following invoice.
+You are a finance analyst preparing a concise invoice summary for management review.
+
+Summarize the invoice below in a clear and structured format.
 
 Invoice details:
 Invoice Number: FF-9021  
@@ -24,16 +26,30 @@ Items:
 
 Total: $1050  
 
-Provide a short summary.
+Provide the summary in the following format:
+
+Invoice Number:  
+Vendor:  
+Date:  
+
+Items Summary:  
+(Briefly list key items and quantities)
+
+Total Amount:  
+
+Overall Summary:  
+(1–2 sentences summarizing the invoice)
+
+Keep the response professional, concise, and easy to read.
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
-- **Trigger:** Invoice processed after extraction and classification  
-- **Actor:** Finance team / manager  
-- **Timing:** Before validation or approval  
-- **Next step:** Supports quick review → P01 validation or P05 approval  
+- Trigger: Invoice processed after extraction and classification  
+- Actor: Finance team / managers  
+- Timing: Before validation or approval  
+- Next step: Quick understanding → P01 validation / P05 approval  
 
 Flow:
 P02 → P03 → [P04 RUNS] → Summary → P01  
@@ -42,12 +58,14 @@ P02 → P03 → [P04 RUNS] → Summary → P01
 
 ## ❗ Problem Being Solved
 
-Finance managers often need a **quick overview** of invoices without reading full details.
+Managers need a quick, readable overview of invoices.
 
-Manual review:
+Manual reading:
 - Time-consuming  
-- Repetitive  
 - Inefficient at scale  
+- Not standardized  
+
+v1.1 improves readability and consistency.
 
 ---
 
@@ -58,16 +76,16 @@ Manual review:
 - Repetitiveness: Very high  
 - Data availability: High  
 - Human judgment: Low  
-- Integration: Possible  
-- Time saving: ~70%  
+- Integration: Partial  
+- Time saving: ~75%  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Output too generic  
-- Important details may be missed  
-- No structure or standard format  
+- Still not machine-readable  
+- Slight variation possible  
+- No strict length control  
 
 **Overall risk: LOW–MEDIUM**
 
@@ -75,27 +93,46 @@ Manual review:
 
 ## 🔄 Version History
 
-### v1.0 — Initial draft
+### v1.0 → v1.1 Improvements
 
-**Output observed:**
-- Correctly summarizes invoice  
-- Includes vendor, date, items, and total  
-
-**Issues:**
-- No structure → varies across runs  
-- Not standardized → hard for reporting  
-- No constraints → could become too long or too short  
-
-**Lesson learned:**
-- Need structured summary format  
-- Need role-based prompting  
-- Need consistency controls  
+- Added role (finance analyst)  
+- Introduced structured format  
+- Improved clarity and readability  
 
 ---
 
-## 📊 Test Output (v1.0)
+### v1.1 Observations
 
-Invoice FF-9021 from FreshFarm Supplies, dated 22 March 2026, includes flour, eggs, and milk with a total of $1050.
+**Output quality:**
+- Clean structured format  
+- Clear item summary  
+- Professional tone  
+
+**Remaining Issues:**
+- Not JSON  
+- Not automatable for systems  
+
+---
+
+### Lesson Learned
+
+Structured prompts significantly improve readability, but **standardization (JSON) is needed for automation**.
+
+---
+
+## 📊 Test Output (v1.1)
+
+Invoice Number: FF-9021  
+Vendor: FreshFarm Supplies  
+Date: 22 March 2026  
+
+Items Summary:  
+Flour (50kg), Eggs (200 units), Milk (100L)  
+
+Total Amount: $1050  
+
+Overall Summary:  
+Purchase of essential food supplies totaling $1050.
 
 ---
 
@@ -103,5 +140,4 @@ Invoice FF-9021 from FreshFarm Supplies, dated 22 March 2026, includes flour, eg
 
 - Previous: P03 — Vendor classification  
 - Next: P01 — Invoice validation  
-- Downstream: P05 — Approval  
 
