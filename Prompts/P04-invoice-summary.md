@@ -1,18 +1,19 @@
-# P04 · Invoice summary (v1.1)
+# P04 · Invoice summary (v1.2)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 1.5 of 3 (Extraction → Classification → Summary → Validation → Decision)  
-**Current version:** v1.1  
-**Status:** ✅ Tested  
+**Current version:** v1.2  
+**Status:** ✅ Tested and production-ready  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.1 — improved)
+## 📌 Prompt Text (v1.2 — final)
 
-You are a finance analyst preparing a concise invoice summary for management review.
+You are a finance analyst preparing standardized invoice summaries for management reporting.
 
-Summarize the invoice below in a clear and structured format.
+Using ONLY the information provided, generate a concise and structured invoice summary.
+Do not add or assume any information not explicitly given.
 
 Invoice details:
 Invoice Number: FF-9021  
@@ -26,101 +27,91 @@ Items:
 
 Total: $1050  
 
-Provide the summary in the following format:
+Rules:
+1. Follow the exact format below  
+2. Keep the overall summary to a maximum of 2 sentences  
+3. Do not include any extra text outside the format  
+
+Output format:
 
 Invoice Number:  
 Vendor:  
 Date:  
 
 Items Summary:  
-(Briefly list key items and quantities)
+(List all items with quantities in one line)
 
 Total Amount:  
 
 Overall Summary:  
-(1–2 sentences summarizing the invoice)
-
-Keep the response professional, concise, and easy to read.
+(1–2 sentence professional summary)
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
 - Trigger: Invoice processed after extraction and classification  
-- Actor: Finance team / managers  
-- Timing: Before validation or approval  
-- Next step: Quick understanding → P01 validation / P05 approval  
+- Actor: Finance team / management  
+- Timing: Before validation and approval  
+- Next step: Supports decision-making → P01 validation / P05 approval  
 
 Flow:
-P02 → P03 → [P04 RUNS] → Summary → P01  
+P02 → P03 → P04 → P01 → P05  
 
 ---
 
 ## ❗ Problem Being Solved
 
-Managers need a quick, readable overview of invoices.
+Managers need a consistent and quick summary of invoices for faster decision-making.
 
-Manual reading:
+Manual review:
 - Time-consuming  
-- Inefficient at scale  
-- Not standardized  
+- Inconsistent  
+- Not scalable  
 
-v1.1 improves readability and consistency.
+v1.2 standardizes summaries for reporting and decision support.
 
 ---
 
 ## ⚡ Automation Potential
 
-**Level: High**
+**Level: Very High**
 
-- Repetitiveness: Very high  
-- Data availability: High  
-- Human judgment: Low  
-- Integration: Partial  
-- Time saving: ~75%  
+- Standardized output  
+- Consistent format  
+- Easily integrable into reporting systems  
+- Minimal human effort  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Still not machine-readable  
-- Slight variation possible  
-- No strict length control  
+- Still not fully machine-readable (not JSON)  
+- Limited analytical depth  
+- Depends on accuracy of input data  
 
-**Overall risk: LOW–MEDIUM**
+**Overall risk: LOW**
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 → v1.1 Improvements
+### v1.0
+- Basic summary  
+- Unstructured  
 
-- Added role (finance analyst)  
-- Introduced structured format  
-- Improved clarity and readability  
+### v1.1
+- Structured format  
+- Improved readability  
 
----
-
-### v1.1 Observations
-
-**Output quality:**
-- Clean structured format  
-- Clear item summary  
-- Professional tone  
-
-**Remaining Issues:**
-- Not JSON  
-- Not automatable for systems  
+### v1.2 (Final)
+- Strict format enforced  
+- Length constraints added  
+- Standardized output  
 
 ---
 
-### Lesson Learned
-
-Structured prompts significantly improve readability, but **standardization (JSON) is needed for automation**.
-
----
-
-## 📊 Test Output (v1.1)
+## 📊 Final Output (v1.2)
 
 Invoice Number: FF-9021  
 Vendor: FreshFarm Supplies  
@@ -132,7 +123,18 @@ Flour (50kg), Eggs (200 units), Milk (100L)
 Total Amount: $1050  
 
 Overall Summary:  
-Purchase of essential food supplies totaling $1050.
+The invoice records the purchase of flour, eggs, and milk from FreshFarm Supplies. The total amount billed for these items is $1050.  
+
+---
+
+## 📊 Improvement Summary
+
+| Criteria | v1.0 | v1.1 | v1.2 |
+|----------|------|------|------|
+| Structure | Low | High | Very High |
+| Consistency | Medium | High | Very High |
+| Standardization | Low | Medium | High |
+| Automation readiness | Low | Medium | High |
 
 ---
 
@@ -140,4 +142,5 @@ Purchase of essential food supplies totaling $1050.
 
 - Previous: P03 — Vendor classification  
 - Next: P01 — Invoice validation  
+- Downstream: P05 — Approval recommendation  
 
