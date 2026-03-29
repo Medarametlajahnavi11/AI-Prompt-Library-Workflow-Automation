@@ -1,32 +1,52 @@
-# P07 · Dispute email generator (v1.0)
+# P07 · Dispute email generator (v1.1)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 5 (Issue Resolution / Vendor Communication)  
-**Current version:** v1.0  
+**Current version:** v1.1  
 **Status:** ✅ Tested  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.0 — initial)
+## 📌 Prompt Text (v1.1 — improved)
 
-Write an email to the vendor regarding an issue with the invoice.
+You are a finance analyst responsible for communicating invoice issues to vendors.
+
+Draft a professional email to the vendor regarding the issue identified in the invoice.
 
 Details:
 Vendor: FreshFarm Supplies  
 Invoice Number: INV-7845  
 Issue: Total amount does not match calculated value ($1000 vs $940)
 
-Write a professional email explaining the issue.
+Write the email using the following structure:
+
+Subject:  
+(Clear subject line mentioning invoice issue)
+
+Email Body:
+- Greeting  
+- Brief description of the issue  
+- Specific details of the discrepancy  
+- Request for clarification or corrected invoice  
+- Polite closing statement  
+
+Closing:
+- Your Name  
+- Your Position  
+- Company Name  
+
+Ensure the tone is professional, polite, and concise.
+Do not include unnecessary details.
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
-- **Trigger:** Invoice flagged as invalid (P01) or rejected (P05)  
-- **Actor:** Finance team / automated system  
-- **Timing:** Immediately after issue detection  
-- **Next step:** Await vendor response / correction  
+- Trigger: Invoice rejected (P05) or flagged (P06)  
+- Actor: Finance team / automated system  
+- Timing: Immediately after issue detection  
+- Next step: Vendor responds with correction  
 
 Flow:
 P02 → P03 → P04 → P01 → P05 → P06 → [P07 RUNS]
@@ -35,12 +55,12 @@ P02 → P03 → P04 → P01 → P05 → P06 → [P07 RUNS]
 
 ## ❗ Problem Being Solved
 
-Manual email drafting:
-- Takes time  
+Manual communication:
+- Time-consuming  
 - Inconsistent tone  
-- Risk of missing key details  
+- Missing details  
 
-At scale, delays vendor communication and resolution.
+v1.1 standardizes communication and improves clarity.
 
 ---
 
@@ -57,10 +77,9 @@ At scale, delays vendor communication and resolution.
 
 ## ⚠️ Risks and Limitations
 
-- Tone may vary  
-- Missing placeholders (name/company)  
-- Not standardized format  
-- Not integrated with systems  
+- Still not template-constrained fully  
+- Placeholders need validation  
+- Not system-integrated  
 
 **Overall risk: LOW–MEDIUM**
 
@@ -68,36 +87,37 @@ At scale, delays vendor communication and resolution.
 
 ## 🔄 Version History
 
-### v1.0 — Initial draft
+### v1.0 → v1.1 Improvements
 
-**Output observed:**
-- Professional tone  
-- Clear explanation of discrepancy  
-- Includes request for correction  
-
-**Issues:**
-- No fixed structure  
-- Placeholders not controlled  
-- No constraints on tone/length  
-- Not standardized for automation  
-
-**Lesson learned:**
-- Need structured email format  
-- Need tone constraints  
-- Need reusable template  
+- Added role (finance analyst)  
+- Introduced structured email format  
+- Improved tone consistency  
 
 ---
 
-## 📊 Test Output (v1.0)
+### v1.1 Observations
 
-Dear FreshFarm Supplies Team,
+**Output quality:**
+- Professional tone  
+- Clear structure  
+- Includes all required details  
 
-We identified a discrepancy in Invoice INV-7845 where total does not match calculated value ($1000 vs $940).
+**Remaining Issues:**
+- No strict template enforcement  
+- Slight variation possible  
+- Not reusable across systems directly  
 
-Please review and provide clarification.
+---
 
-Regards,  
-[Your Name]
+### Lesson Learned
+
+Structured format improves clarity, but **strict templates are needed for full automation**.
+
+---
+
+## 📊 Test Output (v1.1)
+
+Professional email with clear issue explanation and polite request for correction.
 
 ---
 
