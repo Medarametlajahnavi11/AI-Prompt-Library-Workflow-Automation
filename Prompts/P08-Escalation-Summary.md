@@ -1,42 +1,47 @@
-# P08 · Escalation summary (v1.1)
+# P08 · Escalation summary (v1.2)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 6 (Escalation / Management Reporting)  
-**Current version:** v1.1  
-**Status:** ✅ Tested  
+**Current version:** v1.2  
+**Status:** ✅ Tested and production-ready  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.1 — improved)
+## 📌 Prompt Text (v1.2 — final)
 
-You are a finance analyst preparing an escalation summary for management review.
+You are a finance analyst preparing executive-level escalation summaries for management.
 
-Summarize the invoice issue below in a clear and structured format.
+Using ONLY the information provided, generate a concise and structured escalation summary.
+Do not add or assume any information beyond what is given.
 
 Invoice details:
 Invoice Number: INV-7845  
 Vendor: FreshFarm Supplies  
 Issue: Total mismatch ($1000 vs $940)  
 
-Provide the summary in the following format:
+Rules:
+1. Follow the exact format below  
+2. Keep each section concise (maximum 1–2 lines)  
+3. Maintain a professional and decision-focused tone  
+4. Do not include any extra text outside the format  
+
+Output format:
 
 Invoice Number:  
 Vendor:  
 
 Issue Summary:  
-(Brief description of the problem)
+(1–2 line summary)
 
 Risk Level:  
 (Low / Medium / High)
 
 Business Impact:  
-(Explain potential impact such as financial risk, delay, or compliance issue)
+(1–2 line impact)
 
 Recommended Action:  
-(What should be done next)
-
-Keep the summary concise, professional, and decision-focused.
+(1 line action)
 
 ---
 
@@ -54,74 +59,80 @@ P02 → P03 → P04 → P01 → P05 → P06 → P07 → [P08 RUNS]
 
 ## ❗ Problem Being Solved
 
-Managers need clear, structured escalation summaries to:
-- Quickly understand issues  
-- Assess risk  
-- Take action  
+Managers need concise, structured summaries to quickly assess risks and take action.
 
-v1.1 improves clarity and decision-readiness.
+v1.2 ensures:
+- Standardized reporting  
+- Faster decision-making  
+- Clear accountability  
 
 ---
 
 ## ⚡ Automation Potential
 
-**Level: High**
+**Level: Very High**
 
-- Repetitiveness: High  
-- Data availability: High  
-- Human judgment: Medium  
-- Time saving: ~75%  
+- Fully standardized output  
+- Dashboard/report ready  
+- Scalable across high volumes  
+- Minimal human effort  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Not machine-readable  
+- Not JSON (human-readable focus)  
 - Risk level subjective  
-- Variation possible  
+- Requires governance checks  
 
-**Overall risk: LOW–MEDIUM**
+**Overall risk: LOW**
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 → v1.1 Improvements
+### v1.0
+- Basic summary  
+- Unstructured  
 
-- Added role (finance analyst)  
+### v1.1
 - Structured format  
-- Added risk + impact + action  
+- Added risk and action  
+
+### v1.2 (Final)
+- Strict template  
+- Executive-ready  
+- Fully standardized  
 
 ---
 
-### v1.1 Observations
-
-- Clear structured output  
-- Strong business context  
-- Actionable recommendation  
-
-**Remaining Issues:**
-- Not JSON  
-- Not fully standardized  
-
----
-
-## 📊 Test Output (v1.1)
+## 📊 Final Output (v1.2)
 
 Invoice Number: INV-7845  
 Vendor: FreshFarm Supplies  
 
 Issue Summary:  
-Mismatch between stated and calculated totals ($1000 vs $940).  
+Mismatch between stated total ($1000) and calculated total ($940), resulting in a $60 discrepancy.  
 
 Risk Level:  
 High  
 
 Business Impact:  
-Potential financial discrepancy and overpayment risk.  
+Risk of incorrect payment due to discrepancy in invoice total.  
 
 Recommended Action:  
-Hold payment and request correction.  
+Hold payment and request clarification or corrected invoice from the vendor.  
+
+---
+
+## 📊 Improvement Summary
+
+| Criteria | v1.0 | v1.1 | v1.2 |
+|----------|------|------|------|
+| Structure | Low | High | Very High |
+| Decision-readiness | Low | High | Very High |
+| Standardization | Low | Medium | High |
+| Automation readiness | Low | Medium | Very High |
 
 ---
 
