@@ -1,16 +1,18 @@
-# P06 · Fraud / anomaly detection (v1.0)
+# P06 · Fraud / anomaly detection (v1.1)
 
 **Section:** Finance Operations — Accounts Payable  
-**Workflow step:** Step 4 of 3+ (Risk Check after Decision)  
-**Current version:** v1.0  
+**Workflow step:** Step 4 of workflow (Risk Check)  
+**Current version:** v1.1  
 **Status:** ✅ Tested  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.0 — initial)
+## 📌 Prompt Text (v1.1 — improved)
 
-Check if the following invoice looks suspicious or not.
+You are a finance analyst responsible for detecting potential fraud or anomalies in invoices.
+
+Review the invoice below and determine if it shows signs of suspicious activity.
 
 Invoice details:
 Invoice Number: INV-7845  
@@ -18,37 +20,40 @@ Vendor: FreshFarm Supplies
 Total Amount: $1000  
 Calculated Total: $940  
 
-Provide:
-- Whether it is suspicious or not  
-- Reason for your answer
+Fraud detection rules:
+1. Flag as suspicious if there is a mismatch between total and calculated values  
+2. Flag if there are unexplained differences in amounts  
+3. Flag if critical information is missing or inconsistent  
+
+Tasks:
+1. Determine if the invoice is Suspicious or Not Suspicious  
+2. Assign a risk level: Low / Medium / High  
+3. Provide a short explanation based on the rules  
+
+Ensure your decision is based only on the given data.
+Keep the explanation concise and professional.
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
-- **Trigger:** After invoice validation or decision stage  
-- **Actor:** Finance team / automated risk system  
-- **Timing:** Before final approval or audit  
-- **Next step:**  
-  - Not suspicious → Continue process  
-  - Suspicious → Flag for investigation  
-
-Flow:
-P02 → P03 → P04 → P01 → P05 → [P06 RUNS]  
+- Trigger: After validation and approval step  
+- Actor: Finance / risk system  
+- Timing: Before payment release  
+- Next step:
+  - Low risk → proceed  
+  - Medium/High → audit / review  
 
 ---
 
 ## ❗ Problem Being Solved
 
-Fraud detection is:
-- Manual  
-- Inconsistent  
-- Reactive instead of proactive  
+Fraud detection is inconsistent and reactive.
 
-Missed anomalies can lead to:
-- Financial loss  
-- Compliance issues  
-- Vendor fraud  
+v1.1 introduces:
+- Rule-based detection  
+- Risk classification  
+- Better decision support  
 
 ---
 
@@ -56,55 +61,52 @@ Missed anomalies can lead to:
 
 **Level: High**
 
-- Repetitiveness: High  
-- Data availability: High  
-- Human judgment: Medium  
-- Time saving: ~75%  
+- Repetitive checks  
+- Clear rules  
+- Scalable  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- No defined fraud rules  
-- Subjective outputs  
-- Not structured  
-- Cannot integrate into systems  
-
-**Overall risk: MEDIUM–HIGH**
+- Not machine-readable  
+- Risk level subjective  
+- Needs audit layer  
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 — Initial draft
-
-**Output observed:**
-- Correctly identified discrepancy  
-- Marked invoice as suspicious  
-- Provided logical reasoning  
-
-**Issues:**
-- No standardized fraud criteria  
-- No risk scoring  
-- Not machine-readable  
-
-**Lesson learned:**
-- Need fraud detection rules  
-- Need risk levels  
-- Need structured output (JSON in v1.2)  
+### v1.0 → v1.1 Improvements
+- Added role  
+- Added fraud rules  
+- Added risk level  
 
 ---
 
-## 📊 Test Output (v1.0)
+### v1.1 Observations
+
+- Correctly flagged as suspicious  
+- Risk level: High  
+- Explanation aligned with rules  
+
+**Remaining Issues:**
+- Not JSON  
+- Not automatable  
+
+---
+
+## 📊 Test Output
 
 Suspicious: Yes  
+Risk Level: High  
 
-Reason: Total mismatch creates unexplained discrepancy.
+Explanation: Total mismatch causing anomaly.
 
 ---
 
 ## 🔗 Related Prompts
 
-- Previous: P05 — Approval decision  
-- Downstream: P10 — Audit / reporting  
+- Previous: P05 — Approval  
+- Next: P10 — Audit reporting  
 
