@@ -1,18 +1,19 @@
-# P05 · Approval recommendation (v1.1)
+# P05 · Approval recommendation (v1.2)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 3 of 3 (Extraction → Validation → Decision)  
-**Current version:** v1.1  
-**Status:** ✅ Tested  
+**Current version:** v1.2  
+**Status:** ✅ Tested and production-ready  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.1 — improved)
+## 📌 Prompt Text (v1.2 — final)
 
 You are a finance analyst responsible for reviewing invoices and recommending approval decisions.
 
-Based on the invoice details below, decide whether the invoice should be Approved, Rejected, or sent for Review.
+Using ONLY the information provided, determine whether the invoice should be Approved, Rejected, or sent for Review.
+Do not assume or add information beyond what is given.
 
 Invoice details:
 Invoice Number: INV-7845  
@@ -23,21 +24,28 @@ Calculated Total: $940
 Decision rules:
 1. Approve → If total matches calculated value and no issues are present  
 2. Reject → If there is a clear discrepancy or missing critical information  
-3. Review → If there is uncertainty or partial information  
+3. Review → If there is uncertainty or incomplete data  
 
 Tasks:
-1. Choose one decision: Approve / Reject / Review  
-2. Provide a short explanation for your decision  
+1. Select EXACTLY ONE decision: Approve / Reject / Review  
+2. Provide a short reason based only on the given data  
+3. Assign a confidence score between 0 and 1  
 
-Ensure the decision strictly follows the rules above.
-Keep the explanation concise and professional.
+Respond in JSON ONLY. Do not include any explanation outside the JSON.
+
+{
+  "invoice_number": "",
+  "decision": "",
+  "confidence": 0.0,
+  "reason": ""
+}
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
 - Trigger: Invoice validated (P01 completed)  
-- Actor: Finance team / automated system  
+- Actor: Automated system / finance team  
 - Timing: Before payment approval  
 - Next step:
   - Approve → Payment processing  
@@ -51,80 +59,72 @@ P02 → P03 → P04 → P01 → [P05 RUNS] → Decision
 
 ## ❗ Problem Being Solved
 
-Manual approval decisions:
-- Are inconsistent  
-- Delay processing  
-- Increase financial risk  
+Approval decisions are:
+- Time-consuming  
+- Inconsistent  
+- Risk-prone  
 
-v1.1 introduces standardized decision rules.
+v1.2 enables automated, consistent, and explainable decisions.
 
 ---
 
 ## ⚡ Automation Potential
 
-**Level: High**
+**Level: Very High**
 
-- Repetitiveness: High  
-- Data availability: High  
-- Human judgment: Medium  
-- Integration: Partial  
-- Time saving: ~75%  
+- Fully machine-readable output  
+- API/ERP integration ready  
+- Scalable across large invoice volumes  
+- Minimal human intervention  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Not machine-readable  
-- Edge cases may still require human review  
-- Decision rules may need expansion  
+- Edge cases may require manual override  
+- Confidence score is subjective  
+- Over-reliance risk → audit required  
 
-**Overall risk: MEDIUM**
+**Overall risk: LOW–MEDIUM**
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 → v1.1 Improvements
+### v1.0
+- Basic decision  
+- No rules  
 
-- Added role (finance analyst)  
-- Introduced decision rules  
+### v1.1
+- Added decision rules  
 - Improved consistency  
 
----
-
-### v1.1 Observations
-
-- Correct decision: Reject  
-- Decision aligned with rules  
-- Clear explanation  
-
-**Remaining Issues:**
-- Not JSON  
-- Not automatable  
+### v1.2 (Final)
+- JSON output  
+- Confidence score  
+- Fully automatable  
 
 ---
 
-### Lesson Learned
+## 📊 Final Output (v1.2)
 
-Decision rules significantly improve reliability, but **structured output is required for full automation**.
-
----
-
-## 📊 Comparison
-
-| Criteria | v1.0 | v1.1 |
-|----------|------|------|
-| Consistency | Medium | High |
-| Control | Low | High |
-| Automation readiness | Low | Medium |
+{
+"invoice_number": "INV-7845",
+"decision": "Reject",
+"confidence": 0.98,
+"reason": "The total amount ($1000) does not match the calculated total ($940), indicating a discrepancy."
+}
 
 ---
 
-## 📊 Test Output
+## 📊 Improvement Summary
 
-Decision: Reject  
-
-Explanation: Total mismatch between stated and calculated values.
+| Criteria | v1.0 | v1.1 | v1.2 |
+|----------|------|------|------|
+| Consistency | Medium | High | Very High |
+| Decision control | Low | High | Very High |
+| Machine-readable | ❌ | ❌ | ✅ |
+| Automation readiness | Low | Medium | Very High |
 
 ---
 
