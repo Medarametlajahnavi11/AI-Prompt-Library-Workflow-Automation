@@ -1,19 +1,21 @@
-# P03 · Vendor classification (v1.1)
+# P03 · Vendor classification (v1.2)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 0.5 of 3 (Extraction → Classification → Validation → Decision)  
-**Current version:** v1.1  
-**Status:** ✅ Tested  
+**Current version:** v1.2  
+**Status:** ✅ Tested and production-ready  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.1 — improved)
+## 📌 Prompt Text (v1.2 — final)
 
 You are a finance analyst responsible for categorizing vendors for financial reporting.
 
-Classify the vendor below into EXACTLY ONE of the following categories:
+Using ONLY the vendor name provided, classify the vendor into EXACTLY ONE of the categories below.
+Do not assume information beyond what is implied by the name.
 
+Categories:
 - Raw Materials Supplier  
 - Logistics & Delivery  
 - Equipment & Maintenance  
@@ -23,12 +25,20 @@ Classify the vendor below into EXACTLY ONE of the following categories:
 
 Vendor Name: FreshFarm Supplies  
 
-Tasks:
-1. Select the most appropriate category from the list above  
-2. Provide a short explanation for your choice  
+Rules:
+1. Choose ONLY one category from the list  
+2. If unsure, select "Other"  
+3. Provide a short reasoning based ONLY on the vendor name  
+4. Assign a confidence score between 0 and 1  
 
-Ensure the category is chosen ONLY from the given list.
-Keep the explanation concise and professional.
+Respond in JSON ONLY. Do not include any explanation outside the JSON.
+
+{
+  "vendor_name": "",
+  "category": "",
+  "confidence": 0.0,
+  "reason": ""
+}
 
 ---
 
@@ -36,89 +46,87 @@ Keep the explanation concise and professional.
 
 - Trigger: Vendor identified during invoice processing  
 - Actor: Automated system / finance team  
-- Timing: After P02 extraction  
-- Next step: Used for reporting and validation (P01)
+- Timing: Real-time classification  
+- Next step: Used in validation (P01) and reporting  
 
 Flow:
-P02 → [P03 RUNS] → Category → P01  
+P02 → P03 → P01 → P05  
 
 ---
 
 ## ❗ Problem Being Solved
 
-Lack of standardized vendor categorization leads to:
+Unstructured vendor data leads to:
 - Poor spend visibility  
-- Inconsistent reporting  
-- Weak fraud detection  
+- Inconsistent categorization  
+- Weak analytics and fraud detection  
 
-v1.1 improves consistency using a fixed category list.
+v1.2 enables consistent, structured categorization.
 
 ---
 
 ## ⚡ Automation Potential
 
-**Level: High**
+**Level: Very High**
 
-- Repetitiveness: High  
-- Data availability: High  
-- Human judgment: Medium  
-- Integration: Partial  
-- Time saving: ~75%  
+- Machine-readable output  
+- API-ready  
+- Scalable across large invoice volumes  
+- Minimal human intervention  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Still not machine-readable  
-- Misclassification for ambiguous vendors  
-- No confidence score  
+- Ambiguous vendor names → misclassification risk  
+- Confidence score subjective  
+- Requires periodic audit  
 
-**Overall risk: MEDIUM**
+**Overall risk: LOW–MEDIUM**
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 → v1.1 Improvements
+### v1.0
+- No constraints  
+- Inconsistent output  
 
-- Added role (finance analyst)  
-- Introduced fixed category list  
+### v1.1
+- Fixed categories  
 - Improved consistency  
 
----
-
-### v1.1 Observations
-
-- Correct classification: Raw Materials Supplier  
-- Consistent output format  
-- Controlled categorization  
-
-**Remaining Issues:**
-- Not JSON  
-- Cannot directly integrate  
+### v1.2 (Final)
+- JSON output  
+- Confidence score added  
+- Fully automatable  
 
 ---
 
-## 📊 Comparison
+## 📊 Final Output (v1.2)
 
-| Criteria | v1.0 | v1.1 |
-|----------|------|------|
-| Consistency | Medium | High |
-| Control | Low | High |
-| Automation readiness | Low | Medium |
+{
+"vendor_name": "FreshFarm Supplies",
+"category": "Raw Materials Supplier",
+"confidence": 0.9,
+"reason": "The name suggests supply of farm-based goods, which are typically used as raw materials."
+}
 
 ---
 
-## 📊 Test Output
+## 📊 Improvement Summary
 
-Category: Raw Materials Supplier  
-
-Explanation: Vendor provides ingredients like flour, eggs, and milk used as raw materials.
+| Criteria | v1.0 | v1.1 | v1.2 |
+|----------|------|------|------|
+| Consistency | Medium | High | Very High |
+| Control | Low | High | Very High |
+| Machine-readable | ❌ | ❌ | ✅ |
+| Automation readiness | Low | Medium | Very High |
 
 ---
 
 ## 🔗 Related Prompts
 
-- Previous: P02 — Extraction  
-- Next: P01 — Validation  
+- Previous: P02 — Invoice extraction  
+- Next: P01 — Invoice validation  
 
