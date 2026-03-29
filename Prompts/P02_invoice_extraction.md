@@ -1,16 +1,18 @@
-# P02 · Invoice data extraction (v1.0)
+# P02 · Invoice data extraction (v1.1)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 0 of 3 (Extraction → Validation → Decision)  
-**Current version:** v1.0  
+**Current version:** v1.1  
 **Status:** ✅ Tested  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.0 — initial)
+## 📌 Prompt Text (v1.1 — improved)
 
-Extract key details from the following invoice.
+You are a finance analyst responsible for extracting structured data from vendor invoices.
+
+Extract the key details from the invoice below.
 
 Invoice text:
 Invoice No: FF-9021
@@ -24,30 +26,41 @@ Milk 100L - $250
 
 Total: $1050
 
-Provide the extracted information clearly.
+Provide the output in the following structured format:
+
+Invoice Number:  
+Vendor Name:  
+Invoice Date:  
+
+Items:
+- Item Name | Quantity | Price  
+
+Total Amount:  
+
+Ensure all details are clearly extracted and formatted consistently.
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
-- **Trigger:** Invoice received in raw/unstructured format (text, email, PDF OCR)  
-- **Actor:** Automated system or finance executive  
-- **Timing:** Immediately upon invoice receipt  
-- **Next step:** Output passed to P01 (Invoice Validation)
+- Trigger: Invoice received in raw format  
+- Actor: Automated system / finance team  
+- Timing: Real-time extraction  
+- Next step: Pass structured data to P01 (validation)
 
 Flow:
-Raw Invoice → [P02 RUNS] → Structured data → P01 Validation  
+Raw Invoice → [P02 RUNS] → Structured Output → P01 Validation  
 
 ---
 
 ## ❗ Problem Being Solved
 
-Invoices arrive in **unstructured formats**, making it difficult to:
-- Extract key fields manually  
-- Standardize data for validation  
-- Feed into systems  
+Invoices come in **unstructured formats**, making:
+- Manual extraction time-consuming (2–5 minutes/invoice)  
+- Standardization difficult  
+- Downstream automation (validation, approval) inefficient  
 
-Manual extraction takes **2–5 minutes per invoice**, creating bottlenecks.
+v1.1 improves consistency for easier downstream use.
 
 ---
 
@@ -56,19 +69,18 @@ Manual extraction takes **2–5 minutes per invoice**, creating bottlenecks.
 **Level: High**
 
 - Repetitiveness: Very high  
-- Data availability: Raw text always available  
+- Data availability: High  
 - Human judgment needed: Low  
-- Integration: Possible after structuring (future versions)  
-- Estimated time saving: ~70%  
+- Integration: Partial (still not machine-readable)  
+- Estimated time saving: ~75%  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Output format inconsistent → Hard to automate  
-- Missing fields not clearly flagged  
-- Variability in wording across runs  
-- Not machine-readable  
+- Not machine-readable → Cannot directly integrate with systems  
+- Minor format inconsistencies possible  
+- Missing fields not explicitly flagged  
 
 **Overall risk rating: MEDIUM**
 
@@ -76,46 +88,63 @@ Manual extraction takes **2–5 minutes per invoice**, creating bottlenecks.
 
 ## 🔄 Version History
 
-### v1.0 — Initial draft
+### v1.0 → v1.1 Improvements
 
-**Output observed:**
-- Correctly extracted:
-  - Invoice number  
-  - Vendor name  
-  - Date  
-  - Items with quantities and prices  
-  - Total  
-
-**Issues:**
-- Output is formatted for humans, not systems  
-- No consistent schema  
-- Emojis/formatting may vary  
-- Not suitable for direct integration  
-
-**Lesson learned:**
-- Need structured format  
-- Need role-based prompting  
-- Need strict output schema (JSON in v1.2)  
+- Added role (finance analyst)  
+- Enforced structured output format  
+- Improved consistency and readability  
 
 ---
 
-## 📊 Test Output (v1.0)
+### v1.1 — Observed Output
+
+**Output quality:**
+- Clean structured format  
+- Correct extraction of all fields  
+- Consistent item formatting  
+
+**Remaining Issues:**
+- Not JSON / machine-readable  
+- Slight formatting variation possible  
+- Not API-ready  
+
+---
+
+### Lesson Learned
+
+- Structured templates improve consistency significantly  
+- However, **machine-readable format (JSON) is required for full automation**  
+
+---
+
+## 📊 A/B Comparison
+
+| Criteria | v1.0 | v1.1 |
+|----------|------|------|
+| Structure | Low | High |
+| Consistency | Medium | High |
+| Readability | Medium | High |
+| Automation readiness | Low | Medium |
+
+---
+
+## 📊 Test Output (v1.1)
 
 Invoice Number: FF-9021  
 Vendor Name: FreshFarm Supplies  
 Invoice Date: 22 March 2026  
 
 Items:
-- Flour (50 kg) — $500  
-- Eggs (200 units) — $300  
-- Milk (100 L) — $250  
+Flour | 50 kg | $500  
+Eggs | 200 units | $300  
+Milk | 100 L | $250  
 
-Total: $1050  
+Total Amount: $1050  
 
 ---
 
 ## 🔗 Related Prompts
 
 - **Next in chain:** P01 — Invoice validation  
-- **Downstream:** P05 — Approval decision  
+- **Downstream:** P05 — Approval recommendation  
 
