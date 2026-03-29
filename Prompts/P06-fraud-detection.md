@@ -1,18 +1,19 @@
-# P06 · Fraud / anomaly detection (v1.1)
+# P06 · Fraud / anomaly detection (v1.2)
 
 **Section:** Finance Operations — Accounts Payable  
 **Workflow step:** Step 4 of workflow (Risk Check)  
-**Current version:** v1.1  
-**Status:** ✅ Tested  
+**Current version:** v1.2  
+**Status:** ✅ Tested and production-ready  
 **Last updated:** March 2026  
 
 ---
 
-## 📌 Prompt Text (v1.1 — improved)
+## 📌 Prompt Text (v1.2 — final)
 
 You are a finance analyst responsible for detecting potential fraud or anomalies in invoices.
 
-Review the invoice below and determine if it shows signs of suspicious activity.
+Using ONLY the information provided, assess whether the invoice shows signs of suspicious activity.
+Do not assume or add any information beyond what is given.
 
 Invoice details:
 Invoice Number: INV-7845  
@@ -26,87 +27,109 @@ Fraud detection rules:
 3. Flag if critical information is missing or inconsistent  
 
 Tasks:
-1. Determine if the invoice is Suspicious or Not Suspicious  
+1. Determine if the invoice is suspicious (true/false)  
 2. Assign a risk level: Low / Medium / High  
-3. Provide a short explanation based on the rules  
+3. Assign a risk score between 0 and 1  
+4. Provide a short reason based only on the given data  
 
-Ensure your decision is based only on the given data.
-Keep the explanation concise and professional.
+Respond in JSON ONLY. Do not include any explanation outside the JSON.
+
+{
+  "invoice_number": "",
+  "is_suspicious": true/false,
+  "risk_level": "",
+  "risk_score": 0.0,
+  "reason": ""
+}
 
 ---
 
 ## 🏢 Intended Workflow or Task
 
-- Trigger: After validation and approval step  
-- Actor: Finance / risk system  
-- Timing: Before payment release  
+- Trigger: After validation and approval stage  
+- Actor: Automated risk system / finance team  
+- Timing: Before final payment  
 - Next step:
   - Low risk → proceed  
-  - Medium/High → audit / review  
+  - Medium/High → audit / investigation  
+
+Flow:
+P02 → P03 → P04 → P01 → P05 → [P06 RUNS]  
 
 ---
 
 ## ❗ Problem Being Solved
 
-Fraud detection is inconsistent and reactive.
+Fraud and anomalies are often:
+- Detected late  
+- Inconsistently identified  
+- Highly manual  
 
-v1.1 introduces:
-- Rule-based detection  
-- Risk classification  
-- Better decision support  
+v1.2 enables proactive, structured fraud detection.
 
 ---
 
 ## ⚡ Automation Potential
 
-**Level: High**
+**Level: Very High**
 
-- Repetitive checks  
-- Clear rules  
+- Machine-readable output  
 - Scalable  
+- Integrates with audit systems  
+- Minimal human effort  
 
 ---
 
 ## ⚠️ Risks and Limitations
 
-- Not machine-readable  
-- Risk level subjective  
-- Needs audit layer  
+- Risk score is heuristic  
+- Complex fraud patterns may require advanced models  
+- Requires audit governance  
+
+**Overall risk: LOW–MEDIUM**
 
 ---
 
 ## 🔄 Version History
 
-### v1.0 → v1.1 Improvements
-- Added role  
-- Added fraud rules  
-- Added risk level  
+### v1.0
+- Basic suspicion check  
+
+### v1.1
+- Added rules + risk level  
+
+### v1.2 (Final)
+- JSON output  
+- Risk scoring  
+- Fully automatable  
 
 ---
 
-### v1.1 Observations
+## 📊 Final Output (v1.2)
 
-- Correctly flagged as suspicious  
-- Risk level: High  
-- Explanation aligned with rules  
-
-**Remaining Issues:**
-- Not JSON  
-- Not automatable  
+{
+"invoice_number": "INV-7845",
+"is_suspicious": true,
+"risk_level": "High",
+"risk_score": 0.95,
+"reason": "The total amount ($1000) does not match the calculated total ($940), creating an unexplained discrepancy."
+}
 
 ---
 
-## 📊 Test Output
+## 📊 Improvement Summary
 
-Suspicious: Yes  
-Risk Level: High  
-
-Explanation: Total mismatch causing anomaly.
+| Criteria | v1.0 | v1.1 | v1.2 |
+|----------|------|------|------|
+| Logic control | Low | High | Very High |
+| Risk insight | None | Medium | High |
+| Machine-readable | ❌ | ❌ | ✅ |
+| Automation readiness | Low | Medium | Very High |
 
 ---
 
 ## 🔗 Related Prompts
 
 - Previous: P05 — Approval  
-- Next: P10 — Audit reporting  
+- Next: P07 — Dispute email  
 
